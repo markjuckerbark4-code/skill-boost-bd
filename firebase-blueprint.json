@@ -1,0 +1,205 @@
+{
+  "entities": {
+    "Package": {
+      "title": "Course Package",
+      "description": "A Spoken English training package sold on the ABY HAYAT EDUCATION storefront.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "minLength": 2, "maxLength": 120 },
+        "subtitle": { "type": "string", "minLength": 2, "maxLength": 240 },
+        "level": {
+          "type": "string",
+          "enum": ["Beginner", "Intermediate", "IELTS & Career", "1-on-1 Coaching"]
+        },
+        "duration": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "format": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "price": { "type": "number" },
+        "originalPrice": { "type": "number" },
+        "imageUrl": { "type": "string", "maxLength": 500 },
+        "features": { "type": "array" },
+        "featured": { "type": "boolean" },
+        "active": { "type": "boolean" },
+        "seatsLabel": { "type": "string", "maxLength": 60 },
+        "sortOrder": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "title",
+        "subtitle",
+        "level",
+        "duration",
+        "format",
+        "price",
+        "originalPrice",
+        "imageUrl",
+        "features",
+        "featured",
+        "active",
+        "seatsLabel",
+        "sortOrder",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Order": {
+      "title": "Enrollment Order",
+      "description": "Student package purchase and payment verification record.",
+      "type": "object",
+      "properties": {
+        "orderCode": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 40 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "packageId": { "type": "string", "maxLength": 128 },
+        "packageTitle": { "type": "string", "maxLength": 120 },
+        "studentName": { "type": "string", "maxLength": 100 },
+        "studentEmail": { "type": "string", "maxLength": 150 },
+        "studentPhone": { "type": "string", "maxLength": 40 },
+        "batchPreference": { "type": "string", "maxLength": 60 },
+        "paymentMethod": { "type": "string", "maxLength": 60 },
+        "senderNumber": { "type": "string", "maxLength": 60 },
+        "trxId": { "type": "string", "maxLength": 80 },
+        "couponCode": { "type": "string", "maxLength": 40 },
+        "discountAmount": { "type": "number" },
+        "originalAmount": { "type": "number" },
+        "finalPrice": { "type": "number" },
+        "currency": { "type": "string", "maxLength": 10 },
+        "status": { "type": "string", "enum": ["pending", "verified", "rejected"] },
+        "adminNote": { "type": "string", "maxLength": 300 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "orderCode",
+        "userId",
+        "packageId",
+        "packageTitle",
+        "studentName",
+        "studentEmail",
+        "studentPhone",
+        "batchPreference",
+        "paymentMethod",
+        "senderNumber",
+        "trxId",
+        "couponCode",
+        "discountAmount",
+        "originalAmount",
+        "finalPrice",
+        "currency",
+        "status",
+        "adminNote",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "OrderLookup": {
+      "title": "Public Order Status",
+      "description": "PII-free public tracking record keyed by orderCode.",
+      "type": "object",
+      "properties": {
+        "orderCode": { "type": "string", "pattern": "^[a-zA-Z0-9_\\-]+$", "maxLength": 40 },
+        "orderId": { "type": "string", "maxLength": 128 },
+        "packageTitle": { "type": "string", "maxLength": 120 },
+        "finalPrice": { "type": "number" },
+        "currency": { "type": "string", "maxLength": 10 },
+        "paymentMethod": { "type": "string", "maxLength": 60 },
+        "batchPreference": { "type": "string", "maxLength": 60 },
+        "status": { "type": "string", "enum": ["pending", "verified", "rejected"] },
+        "adminNote": { "type": "string", "maxLength": 300 },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "orderCode",
+        "orderId",
+        "packageTitle",
+        "finalPrice",
+        "currency",
+        "paymentMethod",
+        "batchPreference",
+        "status",
+        "adminNote",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Coupon": {
+      "title": "Discount Coupon",
+      "description": "Promotional discount code managed by admin.",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "pattern": "^[A-Z0-9_\\-]+$", "maxLength": 30 },
+        "discountType": { "type": "string", "enum": ["percent", "fixed"] },
+        "discountValue": { "type": "number" },
+        "description": { "type": "string", "maxLength": 150 },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["code", "discountType", "discountValue", "description", "active", "createdAt", "updatedAt"]
+    },
+    "Inquiry": {
+      "title": "Student Callback Inquiry",
+      "description": "Free speaking assessment or callback request from prospective students.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 40 },
+        "email": { "type": "string", "maxLength": 150 },
+        "currentLevel": { "type": "string", "maxLength": 60 },
+        "goal": { "type": "string", "maxLength": 400 },
+        "status": { "type": "string", "enum": ["new", "contacted", "enrolled"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "phone", "email", "currentLevel", "goal", "status", "createdAt"]
+    },
+    "StoreSettings": {
+      "title": "Store Configuration",
+      "description": "Storefront branding, announcement, testimonials, and payment gateway configuration.",
+      "type": "object",
+      "properties": {
+        "updatedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "AdminUser": {
+      "title": "Admin User",
+      "description": "Authorized admin account entry.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 150 },
+        "name": { "type": "string", "maxLength": 100 },
+        "addedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "name", "addedAt"]
+    }
+  },
+  "firestore": {
+    "/packages/{packageId}": {
+      "schema": { "$ref": "#/entities/Package" },
+      "description": "Spoken English course packages catalog"
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Private student enrollment orders with payment details"
+    },
+    "/orderLookups/{orderCode}": {
+      "schema": { "$ref": "#/entities/OrderLookup" },
+      "description": "PII-free public order status tracking documents"
+    },
+    "/coupons/{couponId}": {
+      "schema": { "$ref": "#/entities/Coupon" },
+      "description": "Promo codes managed in admin panel"
+    },
+    "/inquiries/{inquiryId}": {
+      "schema": { "$ref": "#/entities/Inquiry" },
+      "description": "Prospective student assessment & callback requests"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/StoreSettings" },
+      "description": "Storefront & payment gateway settings documents"
+    },
+    "/admins/{uid}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Authorized admin UIDs"
+    }
+  }
+}

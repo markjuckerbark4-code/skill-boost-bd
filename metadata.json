@@ -1,0 +1,6 @@
+{
+  "name": "ABY HAYAT EDUCATION",
+  "description": "Spoken English coaching packages, structured fluency tracks, local payment enrollment, and complete store & payment admin panel for ABY HAYAT EDUCATION.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
